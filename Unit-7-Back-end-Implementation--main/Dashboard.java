@@ -57,13 +57,20 @@ public class Dashboard extends Application {
 
     private void createScenes() {//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         createLoginScene();
+
         createDashboardScene();
+
         createOrderScene();
         createMenuScene();
+
+
         createReservationScene();
         createUserScene();
 
     }
+
+
+
 
 
 
@@ -121,6 +128,9 @@ public class Dashboard extends Application {
 
 
 
+
+
+
     private void createDashboardScene() {//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         //greeting------------------------------------------------------------------------------------------------------------------------------------------------------
         Text greeting = new Text("Welcome to Gus's Fine Eating &\nSoftware Development Company LLC");
@@ -162,14 +172,24 @@ public class Dashboard extends Application {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
     private void createOrderScene() {//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //greeting------------------------------------------------------------------------------------------------------------------------------------------------------
         Text greeting = new Text("Please Select From the Following:");
         greeting.setStyle("-fx-font-size: 22px;");
         greeting.styleProperty().bind(Bindings.concat("-fx-font-size: ", primaryStage.widthProperty().add(primaryStage.heightProperty()).divide(40), "px;"));
 
         //buttons----------------------------------------------------------------------------------------------------------------------------------------------------------------
-        Button viewMenuBtn = new Button("View Menu and Order");
+        Button viewMenuBtn = new Button("View Menu");
         Button checkOrderBtn = new Button("Check or Update Order");
         Button backBtn = new Button("<-- Back to Dashboard");
 
@@ -196,23 +216,16 @@ public class Dashboard extends Application {
         orderScene = new Scene(layout, 800, 800);
     }
 
-
-    
-    private void createMenuScene() {//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //greeting------------------------------------------------------------------------------------------------------------------------------------------------------
-        Text greeting = new Text("Menu Items");
-        greeting.setStyle("-fx-font-size: 22px;");
-        greeting.styleProperty().bind(Bindings.concat("-fx-font-size: ", primaryStage.widthProperty().add(primaryStage.heightProperty()).divide(40), "px;"));
-
-        // Label to display menu items----
+    private void createMenuScene() {
+        // Label to display menu items
         Label menuLabel = new Label();
     
             try {
                 //URL for menu items----------------------------------------------
-                URL url_menu = new URL("http://localhost:8080/menu-items/all");
+                URL url = new URL("http://localhost:8080/menu-items/all");
     
                 //open connection--------------------------------------------------
-                HttpURLConnection con = (HttpURLConnection) url_menu.openConnection();
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("GET");
     
                 //show menu-----------------------------------------------------------------------------------------------------------------------------------------
@@ -249,21 +262,32 @@ public class Dashboard extends Application {
                 menuLabel.setText("Error: " + ex.getMessage());
             }
 
-            //back button-------------------------------------------------------
             Button backBtn = new Button("<-- Back to Order Screen");
+
             backBtn.setOnAction(e -> primaryStage.setScene(orderScene));
 
     
-        // Layout----------------------------------------------------------------------------------------------------------------------------------------------
+        // Layout------------------------------------
         VBox menuLayout = new VBox(10);
-        menuLayout.getChildren().addAll(greeting, menuLabel, backBtn);
+        menuLayout.getChildren().addAll(menuLabel, backBtn);
         menuLayout.setPadding(new Insets(20));
         menuLayout.setBackground(new Background(new BackgroundFill(Color.LIGHTYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         menuLayout.styleProperty().bind(Bindings.concat("-fx-font-size: ", primaryStage.widthProperty().add(primaryStage.heightProperty()).divide(80), "px;"));
         menuLayout.setAlignment(Pos.CENTER);
     
-        menuScene = new Scene(menuLayout,800, 800);
+        // Set the scene
+        menuScene = new Scene(menuLayout, 800, 800);
     }
+
+
+
+
+
+
+
+
+
+
 
 
 

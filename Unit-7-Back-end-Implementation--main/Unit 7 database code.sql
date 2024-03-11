@@ -2,9 +2,6 @@ CREATE DATABASE GussFineEating;
 
 CREATE TABLE users (
     user_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    address VARCHAR(50),
-    phone_number INT NOT NULL,
-    credit_card INT NOT NULL,
     username VARCHAR(50) NOT NULL UNIQUE,
     password_hash BINARY(64) NOT NULL
 );
@@ -12,12 +9,10 @@ CREATE TABLE users (
 CREATE TABLE orders (
     order_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
-    server_id INT,
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total_amount DECIMAL(10, 2) NOT NULL,
     status ENUM('pending', 'completed', 'cancelled') NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (server_id) REFERENCES servers(server_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE menu_items (
@@ -38,7 +33,6 @@ CREATE TABLE order_items (
     order_id INT NOT NULL,
     item_id INT NOT NULL,
     quantity INT NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (item_id) REFERENCES menu_items(item_id)
 );
